@@ -13,8 +13,9 @@ module.exports = {
       const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);
 
       const hasSSL = config.DEVELOPMENT_STAGE === 'production'; // if SSL certificate is valid
+      const sameSite = config.DEVELOPMENT_STAGE === 'production' ? 'none' : 'strict';
 
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL })
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL, sameSite: sameSite });
 
       return res.json(userData);
     } catch (error) {
@@ -29,8 +30,9 @@ module.exports = {
       const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);
 
       const hasSSL = config.DEVELOPMENT_STAGE === 'production'; // if SSL certificate is valid
+      const sameSite = config.DEVELOPMENT_STAGE === 'production' ? 'none' : 'strict';
 
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL });
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL, sameSite: sameSite });
 
       return res.json(userData);
     } catch (e) {
@@ -56,8 +58,9 @@ module.exports = {
       const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);
 
       const hasSSL = config.DEVELOPMENT_STAGE === 'production'; // if SSL certificate is valid
+      const sameSite = config.DEVELOPMENT_STAGE === 'production' ? 'none' : 'strict';
 
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL });
+      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL, sameSite: sameSite });
 
       return res.json(userData);
     } catch (e) {
