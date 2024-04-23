@@ -13,12 +13,12 @@ module.exports = function (req, res, next) {
       return next(ApiError.UnauthorizedException());
     }
 
-    const adminData = tokenService.validateAccessToken(accessToken);
-    if (!adminData) {
+    const userData = tokenService.validateAccessToken(accessToken);
+    if (!userData) {
       return next(ApiError.UnauthorizedException());
     }
 
-    req.admin = adminData;
+    req.user = userData;
     return next();
   } catch (e) {
     return next(ApiError.UnauthorizedException());
