@@ -24,7 +24,7 @@ module.exports = {
       const { accessToken, refreshToken } = tokenService.generateTokens(userPayload);
       await tokenService.saveToken(userId, refreshToken);
 
-      return { accessToken, refreshToken, userPayload };
+      return { accessToken, refreshToken, user: userPayload };
     } catch (error) {
       console.log(error)
     }
