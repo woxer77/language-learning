@@ -3,7 +3,7 @@ const { hash, compare } = require("bcrypt");
 const userDbService = require("../services/db/user-db-service");
 const tokenService = require("../services/token-service");
 
-const { SALT_ROUNDS } = require("src/configs/config");
+const { SALT_ROUNDS } = require("../configs/config");
 
 const ApiError = require("../exceptions/api-error");
 
