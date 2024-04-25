@@ -1,8 +1,6 @@
 const authService = require("../services/auth-service");
 
-const tokenTimelineToMs = require("../helpers/tokenTimelineToMs");
-
-const config = require("../configs/config");
+const setCookie = require("src/helpers/setCookie");
 
 // get Data and send Data
 module.exports = {
@@ -10,12 +8,8 @@ module.exports = {
     try {
       const user = req.body;
       const userData = await authService.registration(user);
-      const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);
 
-      const hasSSL = config.DEVELOPMENT_STAGE === 'production'; // if SSL certificate is valid
-      const sameSite = config.DEVELOPMENT_STAGE === 'production' ? 'none' : 'strict';
-
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL, sameSite: sameSite });
+      setCookie(res, userData);
 
       return res.json(userData);
     } catch (error) {
@@ -27,12 +21,8 @@ module.exports = {
       const { email, password } = req.body;
 
       const userData = await authService.login(email, password);
-      const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);
 
-      const hasSSL = config.DEVELOPMENT_STAGE === 'production'; // if SSL certificate is valid
-      const sameSite = config.DEVELOPMENT_STAGE === 'production' ? 'none' : 'strict';
-
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL, sameSite: sameSite });
+      setCookie(res, userData);
 
       return res.json(userData);
     } catch (e) {
@@ -43,6 +33,7 @@ module.exports = {
     try {
       const { refreshToken } = req.cookies;
       await authService.logout(refreshToken);
+
       res.clearCookie('refreshToken');
 
       return res.status(200).json({ message: 'You have successfully logged out of your account' });
@@ -55,12 +46,8 @@ module.exports = {
     try {
       const { refreshToken } = req.cookies;
       const userData = await authService.refresh(refreshToken);
-      const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);
 
-      const hasSSL = config.DEVELOPMENT_STAGE === 'production'; // if SSL certificate is valid
-      const sameSite = config.DEVELOPMENT_STAGE === 'production' ? 'none' : 'strict';
-
-      res.cookie('refreshToken', userData.refreshToken, { maxAge: refreshMaxAge, httpOnly: true, secure: hasSSL, sameSite: sameSite });
+      setCookie(res, userData);
 
       return res.json(userData);
     } catch (e) {

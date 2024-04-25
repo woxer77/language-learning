@@ -9,7 +9,9 @@ module.exports = {
   async registration(user) {
     try {
       const candidate = await userDbService.getUserByEmail(user.email);
-      if (candidate) return ApiError.BadRequest('The user with provided email does already exist');
+      if (candidate) {
+        return ApiError.BadRequest('The user with provided email does already exist');
+      }
 
       const hashedPassword = await hash(user.password, 10);
 
