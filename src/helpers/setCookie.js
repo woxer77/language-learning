@@ -1,5 +1,5 @@
-const tokenTimelineToMs = require("src/helpers/tokenTimelineToMs");
-const config = require("src/configs/config");
+const tokenTimelineToMs = require("./tokenTimelineToMs");
+const config = require("../configs/config");
 
 module.exports = function setCookie (res, data) {
   const refreshMaxAge = tokenTimelineToMs(config.JWT_REFRESH_EXPIRES);

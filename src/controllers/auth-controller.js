@@ -1,6 +1,6 @@
 const authService = require("../services/auth-service");
 
-const setCookie = require("src/helpers/setCookie");
+const setCookie = require("../helpers/setCookie");
 
 // get Data and send Data
 module.exports = {
