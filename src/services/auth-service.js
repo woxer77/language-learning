@@ -3,6 +3,8 @@ const { hash, compare } = require("bcrypt");
 const userDbService = require("../services/db/user-db-service");
 const tokenService = require("../services/token-service");
 
+const { SALT_ROUNDS } = require("src/configs/config");
+
 const ApiError = require("../exceptions/api-error");
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
         return ApiError.BadRequest('The user with provided email does already exist');
       }
 
-      const hashedPassword = await hash(user.password, 10);
+      const hashedPassword = await hash(user.password, SALT_ROUNDS);
 
       const userId = await userDbService.createUser({
         email: user.email,
@@ -60,13 +62,13 @@ module.exports = {
     }
 
     const userData = await tokenService.validateRefreshToken(refreshToken);
-    const tokenFromDb = await tokenService.findToken(refreshToken);
+    const sessionData = await tokenService.findToken(refreshToken);
 
-    if (!userData || !tokenFromDb) {
+    if (!userData || !sessionData) {
       throw ApiError.UnauthorizedException();
     }
 
-    const user = await userDbService.getUserById(tokenFromDb.user_id);
+    const user = await userDbService.getUserById(sessionData.user_id);
 
     const userPayload = {
       userId: user.user_id

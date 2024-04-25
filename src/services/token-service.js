@@ -58,7 +58,7 @@ module.exports = {
   },
 
   async findToken(refreshToken) {
-    const tokenData = await tokenDbService.getTokenByToken(refreshToken);
-    return tokenData;
+    const sessionData = await tokenDbService.getTokenByToken(refreshToken);
+    return sessionData;
   }
 };
