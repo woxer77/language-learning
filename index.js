@@ -8,6 +8,7 @@ const db = require('./src/configs/db');
 
 const authRoute = require('./src/routes/auth');
 const userRoute = require('./src/routes/user');
+const youtubeRoute = require('./src/routes/youtube');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,7 @@ app.use(cors({
 }));
 app.use(cookieParser());
 
+app.use('/youtube', youtubeRoute);
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
 
