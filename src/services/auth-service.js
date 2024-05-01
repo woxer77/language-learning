@@ -25,10 +25,10 @@ module.exports = {
       const userPayload = {
         userId: userId
       };
-      const { accessToken, refreshToken } = tokenService.generateTokens(userPayload);
-      await tokenService.saveToken(userId, refreshToken);
+      const tokens = tokenService.generateTokens(userPayload);
+      await tokenService.saveToken(userId, tokens.refreshToken);
 
-      return { accessToken, refreshToken, user: userPayload };
+      return { ...tokens, user: userPayload };
     } catch (error) {
       console.log(error)
     }

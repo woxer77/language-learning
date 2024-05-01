@@ -10,6 +10,9 @@ const authRoute = require('./src/routes/auth');
 const userRoute = require('./src/routes/user');
 const youtubeRoute = require('./src/routes/youtube');
 
+const notesRouter = require('./src/routes/notes');
+const sentencesRouter = require('./src/routes/sentences');
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -23,6 +26,9 @@ app.use(cookieParser());
 app.use('/youtube', youtubeRoute);
 app.use('/auth', authRoute);
 app.use('/user', userRoute);
+
+app.use('/notes', notesRouter);
+app.use('/sentences', sentencesRouter);
 
 app.listen(APP_PORT, () => {
   console.log("You're listening on port " + APP_PORT);

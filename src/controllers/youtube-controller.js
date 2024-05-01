@@ -15,11 +15,31 @@ module.exports = {
       const query = `https://www.googleapis.com/youtube/v3/playlistItems?key=${YT_CONSOLE_API_KEY}&part=${part}&playlistId=${playlistId}&maxResults=${maxResults}`;
 
       const response = await axios.get(query);
-      console.log(response);
+
+      const items = response.data.items.map((elem) => ({
+        title: elem.snippet.title,
+        publishedAt: elem.snippet.publishedAt,
+        thumbnails: {
+          'default': elem.snippet.thumbnails.default,
+          'medium': elem.snippet.thumbnails.medium,
+          'high': elem.snippet.thumbnails.high,
+          'standart': elem.snippet.thumbnails.standart,
+          'maxres': elem.snippet.thumbnails.maxres
+        },
+        playlistId: elem.snippet.playlistId,
+        videoId: elem.snippet.resourceId.videoId,
+        position: elem.snippet.position,
+      }));
+      const mediaData = {
+        items: [...items],
+        nextPageToken: response.data.nextPageToken,
+        prevPageToken: response.data?.prevPageToken,
+      }
       const playlistInfo = {
         type: 'playlist',
-        data: response.data
-      };
+        data: mediaData,
+        positionTuple: [0, 0] // default values where [0 - num of playlist pack(1-50), 0 - num of position in the pack]
+      }; // TODO: think about refactoring playlistInfo data
 
       res.status(200).json(playlistInfo);
       // res.status(200).json(playlistInfo);
