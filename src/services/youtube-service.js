@@ -1,21 +1,23 @@
-const { fetchPlaylistData } = require("../helpers/fetchPlaylistData");
+const { fetchPlaylistData } = require("../helpers/youtube/fetchPlaylistData");
+const { MAX_ITEMS_IN_PACK } = require("../configs/config");
 
 module.exports = {
-  async getPlaylistData(queryData, videoNumber, tokens) {
+  async getPlaylistData(queryData, itemPosition, tokens) {
     const { nextPageToken, prevPageToken } = tokens;
 
     const direction = nextPageToken ? 'next' : 'prev';
     const initialPageToken = nextPageToken || prevPageToken;
 
-    let playlistData = await fetchPlaylistData(queryData, videoNumber, initialPageToken);
+    let playlistData = await fetchPlaylistData(queryData, initialPageToken);
 
     if (direction === 'next') {
-      while (playlistData.data.items[queryData.maxResults - 1].snippet.position < videoNumber) {
-        playlistData = await fetchPlaylistData(queryData, videoNumber, playlistData.data.nextPageToken);
+      while ((playlistData.items[queryData.maxResults - 1]?.position ||
+      playlistData.items[(playlistData.videoCount - 1) % MAX_ITEMS_IN_PACK].position) < itemPosition) {
+        playlistData = await fetchPlaylistData(queryData, playlistData.nextPageToken);
       }
     } else {
-      while (playlistData.data.items[0].snippet.position > videoNumber) {
-        playlistData = await fetchPlaylistData(queryData, videoNumber, playlistData.data.prevPageToken);
+      while (playlistData.items[0].position > itemPosition) {
+        playlistData = await fetchPlaylistData(queryData, playlistData.prevPageToken);
       }
     }
 

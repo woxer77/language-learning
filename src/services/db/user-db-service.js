@@ -9,5 +9,7 @@ module.exports = {
   })
     .catch((error) => {
       console.error('Error inserting new user:', error);
-    })
+    }),
+  setHistory: async (userId, history) => db('users').update({ history: history }).where('user_id', userId),
+  getHistory: async (userId) => db.select('history').first().from('users').where('user_id', userId),
 };

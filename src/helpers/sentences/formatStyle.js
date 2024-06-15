@@ -10,7 +10,8 @@ const formatToDbStyle = (text) => {
   return {
     video_id: text.videoId,
     sentence: text.sentence,
-    number: text.number
+    number: text.number,
+    user_id: text.userId,
   };
 }
 

@@ -1,48 +1,52 @@
-const axios = require('axios');
-
 const youtubeService = require('../services/youtube-service');
 
 const config = require('../configs/config');
+const { fetchPlaylistData } = require("../helpers/youtube/fetchPlaylistData");
+const { fetchVideoData } = require("../helpers/youtube/fetchVideoData");
+const { getPlaylistsHistory } = require("../helpers/youtube/getPlaylistsHistory");
 
 // get Data and send Data
 module.exports = {
   async getPlaylistData(req, res, next) {
     try {
-      const { id: playlistId } = req.params;
-      const { YT_CONSOLE_API_KEY } = config;
-      const part = 'snippet';
-      const maxResults = 50;
-      const query = `https://www.googleapis.com/youtube/v3/playlistItems?key=${YT_CONSOLE_API_KEY}&part=${part}&playlistId=${playlistId}&maxResults=${maxResults}`;
+      const { playlistId, videoId } = req.params;
+      const queryData = {
+        apiKey: config.YT_CONSOLE_API_KEY,
+        part: 'snippet',
+        playlistId: playlistId,
+        maxResults: config.MAX_ITEMS_IN_PACK
+      };
 
-      const response = await axios.get(query);
+      let mediaData = await fetchPlaylistData(queryData, '');
 
-      const items = response.data.items.map((elem) => ({
-        title: elem.snippet.title,
-        publishedAt: elem.snippet.publishedAt,
-        thumbnails: {
-          'default': elem.snippet.thumbnails.default,
-          'medium': elem.snippet.thumbnails.medium,
-          'high': elem.snippet.thumbnails.high,
-          'standart': elem.snippet.thumbnails.standart,
-          'maxres': elem.snippet.thumbnails.maxres
-        },
-        playlistId: elem.snippet.playlistId,
-        videoId: elem.snippet.resourceId.videoId,
-        position: elem.snippet.position,
-      }));
-      const mediaData = {
-        items: [...items],
-        nextPageToken: response.data.nextPageToken,
-        prevPageToken: response.data?.prevPageToken,
+      if (videoId) {
+        let foundVideoPosition = mediaData.items.find((elem) => elem.videoId === videoId)?.position;
+
+        while (foundVideoPosition === undefined) {
+          mediaData = await fetchPlaylistData(queryData, mediaData.nextPageToken);
+          foundVideoPosition = mediaData.items.find((elem) => elem.videoId === videoId)?.position;
+        }
       }
-      const playlistInfo = {
-        type: 'playlist',
-        data: mediaData,
-        positionTuple: [0, 0] // default values where [0 - num of playlist pack(1-50), 0 - num of position in the pack]
-      }; // TODO: think about refactoring playlistInfo data
 
-      res.status(200).json(playlistInfo);
-      // res.status(200).json(playlistInfo);
+      res.status(200).json(mediaData);
+    } catch (e) {
+      next(e);
+    }
+  },
+
+  async getPlaylistsHistory(req, res, next) {
+    try {
+      const { history, lastVisitedVideos } = req.body;
+      const queryData = {
+        apiKey: config.YT_CONSOLE_API_KEY,
+        part: 'snippet',
+        playlistId: '',
+        maxResults: config.MAX_ITEMS_IN_PACK
+      };
+
+      const playlistsHistory = await getPlaylistsHistory(history, lastVisitedVideos, queryData);
+
+      res.status(200).json(playlistsHistory);
     } catch (e) {
       next(e);
     }
@@ -50,23 +54,17 @@ module.exports = {
 
   async getVideoData(req, res, next) {
     try {
-      const { id: videoId } = req.params;
-      const { YT_CONSOLE_API_KEY } = config;
-      const part = 'snippet';
-      const maxResults = 50;
-      const query = `https://www.googleapis.com/youtube/v3/videos?key=${YT_CONSOLE_API_KEY}&part=${part}&id=${videoId}&maxResults=${maxResults}`;
-
-      const response = await axios.get(query);
-      const firstItem = response.data.items[0];
-      firstItem.snippet.resourceId = { videoId: firstItem.id };
-
-      const videoInfo = {
-        type: 'video',
-        data: firstItem
+      const { videoId } = req.params;
+      const queryData = {
+        apiKey: config.YT_CONSOLE_API_KEY,
+        part: 'snippet',
+        videoId,
+        maxResults: config.MAX_ITEMS_IN_PACK
       };
 
-      res.status(200).json(videoInfo);
-      // res.status(200).json(videoInfo);
+      const mediaData = await fetchVideoData(queryData);
+
+      res.status(200).json(mediaData);
     } catch (e) {
       next(e);
     }
@@ -74,19 +72,19 @@ module.exports = {
 
   async getPlaylistPage(req, res, next) {
     try {
-      const { videoNumber, nextPageToken, prevPageToken } = req.body;
+      const { playlistId, itemPosition, nextPageToken, prevPageToken } = req.body;
       const queryData = {
         apiKey: config.YT_CONSOLE_API_KEY,
         part: 'snippet',
-        playlistId: req.body.playlistId,
-        maxResults: 50
+        playlistId: playlistId,
+        maxResults: config.MAX_ITEMS_IN_PACK
       };
 
       const tokens = { nextPageToken, prevPageToken };
 
-      const playlistData = await youtubeService.getPlaylistData(queryData, videoNumber, tokens);
+      const playlistData = await youtubeService.getPlaylistData(queryData, itemPosition, tokens);
 
-      res.status(200).json({ playlistData, videoNumber });
+      res.status(200).json({ playlistData, itemPosition });
     } catch (e) {
       next(e);
     }

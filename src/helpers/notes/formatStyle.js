@@ -13,6 +13,7 @@ const formatToDbStyle = (text) => {
     translated_text: text.translatedText,
     type: text.type,
     time: text.time,
+    user_id: text.userId,
   };
 }
 

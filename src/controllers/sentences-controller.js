@@ -5,22 +5,23 @@ const { formatArrFromDbStyle, formatToDbStyle } = require("../helpers/sentences/
 module.exports = {
   async getSentences(req, res, next) {
     try {
-      const videoId = req.params.id;
-      const sentences = await sentencesService.getSentences(videoId);
+      const { userId, videoId } = req.params;
+      const sentences = await sentencesService.getSentences(userId, videoId);
 
       res.status(200).json(sentences);
     } catch (e) {
       next(e);
     }
   },
-  async addSentence(req, res, next) {
+  async createSentence(req, res, next) {
     try {
-      const reqSentence = formatToDbStyle(req.body);
-      console.log(reqSentence);
-      const resSentence = await sentencesService.addSentence(reqSentence);
+      const data = req.body;
+      const reqSentence = formatToDbStyle(data);
+
+      const resSentence = await sentencesService.createSentence(reqSentence);
       const formattedSentence = formatArrFromDbStyle(resSentence);
 
-      res.status(200).json(formattedSentence);
+      res.status(200).json(formattedSentence[0]);
     } catch (e) {
       next(e);
     }

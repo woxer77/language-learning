@@ -19,4 +19,11 @@ module.exports = {
   DEVELOPMENT_STAGE: process.env.DEVELOPMENT_STAGE,
 
   YT_CONSOLE_API_KEY: process.env.YT_CONSOLE_API_KEY,
+
+  MAX_ITEMS_IN_PACK: process.env.MAX_ITEMS_IN_PACK,
+
+  MAX_HISTORY_LENGTH: process.env.MAX_HISTORY_LENGTH,
+
+  DEEPL_BASE_URL: process.env.DEEPL_BASE_URL,
+  DEEPL_API_KEY: process.env.DEEPL_API_KEY,
 };
