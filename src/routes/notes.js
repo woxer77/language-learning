@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const NotesController = require('../controllers/notes-controller');
-const AuthMiddleware = require('../middlewares/auth-middleware');
+// const AuthMiddleware = require('../middlewares/auth-middleware');
 
 router.get('/expressions/:userId', NotesController.getExpressions);
 router.get('/words/:userId',  NotesController.getWords);
