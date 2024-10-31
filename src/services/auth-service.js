@@ -24,7 +24,7 @@ module.exports = {
 
       const userPayload = {
         userId: userId,
-        history: user.history
+        history: user?.history
       };
       const tokens = tokenService.generateTokens(userPayload);
       await tokenService.saveToken(userId, tokens.refreshToken);
@@ -47,7 +47,7 @@ module.exports = {
 
     const userPayload = {
       userId: user.user_id,
-      history: user.history.split(',')
+      history: user.history?.split(',')
     };
     const tokens = tokenService.generateTokens(userPayload);
     await tokenService.saveToken(user.user_id, tokens.refreshToken);
