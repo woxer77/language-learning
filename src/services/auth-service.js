@@ -1,11 +1,11 @@
-const { hash, compare } = require("bcrypt");
+const { hash, compare } = require('bcrypt');
 
-const userDbService = require("../services/db/user-db-service");
-const tokenService = require("../services/token-service");
+const userDbService = require('../services/db/user-db-service');
+const tokenService = require('../services/token-service');
 
-const { SALT_ROUNDS } = require("../configs/config");
+const { SALT_ROUNDS } = require('../configs/config');
 
-const ApiError = require("../exceptions/api-error");
+const ApiError = require('../exceptions/api-error');
 
 module.exports = {
   async registration(user) {
@@ -15,23 +15,22 @@ module.exports = {
         return ApiError.BadRequest('The user with provided email does already exist');
       }
 
-      const hashedPassword = await hash(user.password, SALT_ROUNDS);
-
+      const hashedPassword = await hash(user.password, parseInt(SALT_ROUNDS));
       const userId = await userDbService.createUser({
         email: user.email,
         password: hashedPassword
       });
-
       const userPayload = {
         userId: userId,
         history: user?.history
       };
+
       const tokens = tokenService.generateTokens(userPayload);
       await tokenService.saveToken(userId, tokens.refreshToken);
 
       return { ...tokens, user: userPayload };
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
   async login(email, password) {
@@ -79,5 +78,5 @@ module.exports = {
     await tokenService.saveToken(user.user_id, tokens.refreshToken);
 
     return { ...tokens, user: userPayload };
-  },
+  }
 };
