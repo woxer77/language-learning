@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://language-learning-seven-virid.vercel.app">
-    <img src="front/public/logo.png" alt="Logo" width="80" height="80">
+    <img src="front/public/logo.png" alt="Logo" width="180" height="180">
   </a>
 
 <h3 align="center">Language Learning</h3>
@@ -14,7 +14,7 @@
     <br />
     <a href="https://language-learning-seven-virid.vercel.app">View Demo</a>
     &middot;
-    <a href="https://github.com/github_username/language-learning/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    <a href="https://github.com/woxer77/language-learning/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
     <a href="https://github.com/woxer77/language-learning/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
@@ -132,7 +132,6 @@ In the sentence history, words already in your dictionary are color-coded by kno
 Select a word or phrase to open a popup and add it to your dictionary. Choose the type (word/expression) and level (weak, medium, strong).
 <br/><br/>
 <img src="front/public/add-word.png" alt="add-word" height="250">
-<br/><br/>
 
 ### 7. View and Organize Dictionary
 If your dictionary has more than 10 items, use pagination to browse.<br/>
@@ -140,7 +139,6 @@ Use the filter buttons to view words by knowledge level.<br/>
 Drag and drop words between levels to update your progress.
 <br/><br/>
 <img src="front/public/drag-and-drop.png" alt="drag-and-drop" height="450">
-<br/><br/>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
