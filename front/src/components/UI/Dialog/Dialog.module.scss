@@ -1,0 +1,12 @@
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+}

@@ -1,0 +1,55 @@
+@import 'config-styles/reset';
+@import 'config-styles/vars';
+@import 'config-styles/fonts';
+
+body {
+  background-color: $default-bg-color;
+}
+
+body, input, textarea, select, button, option {
+  font-family: $default-font-family, 'system-ui';
+}
+
+.page {
+  overflow: hidden; // If need to use 'position: sticky' - set 'overflow: clip'
+  color: $default-text-color;
+  font-weight: $default-font-weight;
+}
+
+*::selection {
+  background-color: wheat;
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 500;
+
+  color: $grey-color;
+}
+
+.number {
+  color: $grey-color;
+  font-size: 16px;
+  font-style: italic;
+}
+
+.divider {
+  border: 1px solid #e7e7e7;
+  width: 100%;
+  height: 1px;
+
+  margin: 10px 0;
+}

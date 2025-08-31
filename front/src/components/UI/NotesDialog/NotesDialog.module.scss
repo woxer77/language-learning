@@ -1,0 +1,90 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.dialog {
+  position: absolute;
+
+  opacity: 0;
+  visibility: hidden;
+
+  padding: 5px 10px;
+  background-color: white;
+  border-radius: 8px;
+
+  .title {
+    display: flex;
+    align-items: center;
+
+    .select {
+      margin-left: 6px;
+      border: 1px solid $border-grey-color;
+      border-radius: 4px;
+
+      cursor: pointer;
+
+      option {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .verticLine {
+    display: block;
+
+    width: 100%;
+    height: 1px;
+    margin: 6px auto;
+
+    background-color: $border-grey-color;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .horizLine {
+      width: 1px;
+      height: 24px;
+      margin: 0 6px;
+
+      background-color: $border-grey-color;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+
+      border: none;
+      background-color: transparent;
+      padding: 4px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: $hover-button-color;
+      }
+
+      svg {
+        width: 32px;
+        height: 32px;
+      }
+
+      #svgWeak {
+        path {
+          fill: $red-color;
+        }
+      }
+
+      #svgMedium {
+        path {
+          fill: $orange-color;
+        }
+      }
+
+      #svgStrong {
+        path {
+          fill: $green-color;
+        }
+      }
+    }
+  }
+}

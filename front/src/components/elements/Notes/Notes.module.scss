@@ -1,0 +1,152 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.notes {
+  width: 100%;
+
+  position: relative;
+
+  border-radius: 10px;
+  border: 2px solid #D6DEE6;
+  background: #F2F2F2;
+  box-shadow: 3px 3px 20px 2px rgba(0, 0, 0, 0.25);
+
+  .levels {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 16px;
+    border-bottom: 1px solid $border-grey-color;
+
+    .level {
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+
+      padding: 8px;
+      border: none;
+      background-color: transparent;
+
+      transition: background-color 0.25s, opacity 0.25s;
+
+      z-index: 1;
+
+      &:hover {
+        background-color: $hover-button-color;
+        border-radius: 2px;
+      }
+
+      .text {
+        font-size: 18px;
+
+        margin-left: 6px;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .main {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-height: 500px;
+
+    .row {
+      position: relative;
+
+      height: 50px;
+
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+
+      border-bottom: 1px solid $border-grey-color;
+
+      .translateBtn {
+        cursor: pointer;
+        width: 23px;
+        height: 22px;
+
+        transition: transform 0.25s;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        svg {
+          & > path {
+            transition: fill 0.25s;
+          }
+
+          &:hover {
+            & > path {
+              fill: $hover-button-color;
+            }
+          }
+        }
+      }
+
+      .text {
+        color: black;
+
+        font-size: 20px;
+        margin-left: 6px;
+        word-break: break-word;
+      }
+
+      .dragBtn {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          cursor: move;
+        }
+
+        svg {
+          fill: $grey-color;
+        }
+      }
+    }
+  }
+
+  .controls {
+    width: 100%;
+
+    .wrapper {
+      height: 100%;
+
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      border-top: 1px solid #D6DEE6;
+
+      .count {
+        display: flex;
+        align-items: center;
+
+        .line {
+          width: 1px;
+          height: 20px;
+          margin: 0 12px;
+          transform: rotate(25deg);
+
+          background-color: $border-grey-color;
+        }
+
+        .text {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.field {
+  position: relative;
+
+  .input {
+    width: 100%;
+
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    padding: 16px 12px 12px 12px;
+    background-color: transparent;
+
+    font-size: 18px;
+
+    transition: 0.25s box-shadow;
+
+    &:focus {
+      box-shadow: 0 0 0 0.1rem $grey-color;
+    }
+  }
+
+  .loading {
+    width: 20px;
+    height: 20px;
+
+    position: absolute;
+
+    left: 12px;
+    top: 25%;
+    right: auto;
+    bottom: auto;
+
+    transform: translateY(-50%);
+
+    border-left-color: $grey-color;
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+
+    position: absolute;
+    left: 10px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    path {
+      fill: $grey-color;
+    }
+  }
+
+  #visibility {
+    left: auto;
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .helperText {
+    position: absolute;
+
+    top: -10px;
+    left: 10px;
+    background-color: inherit;
+    padding: 0 6px;
+    border-radius: 3px;
+
+    font-size: 15px;
+  }
+}
+
+

@@ -1,3 +1,4 @@
-.env
-.idea/
-node_modules/
+api/node_modules/
+front/node_modules/
+api/.env
+front/.env

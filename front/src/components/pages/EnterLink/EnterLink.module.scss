@@ -1,0 +1,60 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.enterLink {
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .title {
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    margin-bottom: 20px;
+  }
+
+  .content {
+    width: 900px;
+
+    padding: 40px 40px 20px 40px;
+    background-color: white;
+    border-radius: 10px;
+
+    .form {
+      width: 100%;
+
+      .field {
+        background-color: white;
+      }
+
+      .button {
+        margin-top: 10px;
+      }
+    }
+
+    .history {
+      margin-top: 10px;
+      padding: 4px 10px;
+
+      border-radius: 8px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border: 1px solid $border-color;
+      background-color: transparent;
+
+      color: $grey-color;
+
+      svg {
+        margin-right: 10px;
+
+        fill: $grey-color;
+      }
+    }
+  }
+}

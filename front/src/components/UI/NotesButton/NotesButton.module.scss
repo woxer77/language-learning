@@ -1,0 +1,43 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+
+  cursor: pointer;
+
+  padding: 10px 22px;
+  background-color: transparent;
+
+  transition: background-color 0.25s;
+
+  &:hover {
+    background-color: $hover-button-color;
+  }
+
+  .text {
+    text-transform: capitalize;
+    font-size: 18px;
+  }
+}
+
+#left {
+  border-right: 1px solid #D6DEE6;
+  border-radius: 0 0 0 8px;
+
+  .text {
+    margin-left: 8px;
+  }
+}
+
+#right {
+  border-left: 1px solid #D6DEE6;
+  border-radius: 0 0 8px 0;
+
+  .text {
+    margin-right: 8px;
+  }
+}

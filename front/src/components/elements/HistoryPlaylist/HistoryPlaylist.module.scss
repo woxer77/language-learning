@@ -1,0 +1,56 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.playlist {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 160px;
+  padding: 10px;
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $default-bg-color;
+  }
+
+  .image {
+    height: 140px;
+    background-color: red;
+
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+
+    margin-right: 20px;
+  }
+
+  .information {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    .title {
+      font-size: 20px;
+      color: #222;
+      font-weight: bold;
+    }
+
+    .channel {
+      font-size: 16px;
+      color: #818181;
+    }
+
+    .divider {
+      margin: 10px 0;
+    }
+
+    .text {
+      font-size: 18px;
+      color: #222;
+    }
+  }
+}

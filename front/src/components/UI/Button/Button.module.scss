@@ -1,0 +1,24 @@
+@import "../../../assets/styles/scss/config-styles/vars";
+
+.button {
+  position: relative;
+
+  width: 100%;
+  min-height: 42px;
+
+  border: none;
+  background-color: $button-color;
+  border-radius: 6px;
+  padding: 10px 0;
+
+  color: white;
+  font-size: 18px;
+
+  &:focus {
+    outline: black auto 5px;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+  }
+}
